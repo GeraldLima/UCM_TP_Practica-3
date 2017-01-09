@@ -2,6 +2,7 @@ package comandos;
 
 import control.Engine;
 
+//TODO CLASE QUE NO SE REFLEJA
 public class Reset extends Command{
 
 	@Override

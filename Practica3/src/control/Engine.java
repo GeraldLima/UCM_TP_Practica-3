@@ -3,6 +3,11 @@ import java.util.Scanner;
 
 import comandos.Command;
 import comandos.CommandParser;
+import comandos.LexicalParser;
+import comandos.ParsedProgram;
+import comandos.SourceProgram;
+import exceptions.ArrayException;
+import exceptions.LexicalAnalysisException;
 import logica.CPU;
 import logica.bytecode.ByteCode;
 import logica.bytecode.ByteCodeParser;
@@ -19,7 +24,13 @@ public class Engine {
 	private Scanner in;
 	private CPU cpu;
 	private final static String MARCAFIN = "end";
-
+	//TODO ANIADIDO
+	private Compiler compiler;
+	private LexicalParser lexicalParser;
+	private SourceProgram sProgram;
+	private ParsedProgram pProgram;
+	private ByteCodeProgram bcProgram;
+	//private boolean end;
 	/**
 	 * Constructora de la clase
 	 */
@@ -204,6 +215,20 @@ public class Engine {
 		
 		return correcto;			
 	}
-			
+	public void compile() throws LexicalAnalysisException, ArrayException {
+		try {
+			this.lexicalAnalysis();
+			this.generateByteCode();
+		}
+		catch (LexicalAnalysisException e){
+			System.err.println("Error del analisis lexico");
+		}
+	}
+	private void lexicalAnalysis() throws LexicalAnalysisException {
+		
+	}
+	private void generateByteCode() throws ArrayException {
+		
+	}
 }
 

@@ -2,6 +2,7 @@ package logica.bytecode;
 
 import logica.CPU;
 
+//TODO CLASE QUE NO SE REFLEJA
 public class Halt extends ByteCode {
 
 	@Override
