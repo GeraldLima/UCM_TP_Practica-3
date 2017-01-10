@@ -1,6 +1,6 @@
 package comandos;
 
-import logica.instruction.Instruction;
+import instruction.Instruction;
 
 public class ParsedProgram {
 	private Instruction[] pProgram;

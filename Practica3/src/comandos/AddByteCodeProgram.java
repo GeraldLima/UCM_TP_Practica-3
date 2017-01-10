@@ -2,8 +2,8 @@ package comandos;
 
 import control.Engine;
 
-//TODO CLASE QUE NO SE REFLEJA
-public class AddByteCodeProgram extends Command{
+//TODO CLASE QUE NO SE REFLEJA.. daba error pork habia que cambiar el extends por implements
+public class AddByteCodeProgram implements Command{
 
 	@Override
 	public boolean execute(Engine engine) {

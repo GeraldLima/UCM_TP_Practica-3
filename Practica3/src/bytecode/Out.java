@@ -1,0 +1,26 @@
+package bytecode;
+
+import elements.CPU;
+
+//TODO CLASE QUE NO SE REFLEJA
+public class Out implements ByteCode {
+
+	@Override
+	public boolean execute(CPU cpu) {
+		
+		return cpu.out();
+	}
+
+	@Override
+	public ByteCode parse(String[] s) {
+		if(s.length != 1 || !s[0].equalsIgnoreCase("OUT")) 
+			return null;
+		else 
+			return new Out();
+	}
+
+	
+	public String toString(){
+		return "OUT";
+	}
+}

@@ -1,17 +1,17 @@
 package control;
 import java.util.Scanner;
 
+import bytecode.ByteCode;
+import bytecode.ByteCodeParser;
+import bytecode.ByteCodeProgram;
 import comandos.Command;
 import comandos.CommandParser;
-import comandos.LexicalParser;
 import comandos.ParsedProgram;
 import comandos.SourceProgram;
+import elements.CPU;
+import elements.LexicalParser;
 import exceptions.ArrayException;
 import exceptions.LexicalAnalysisException;
-import logica.CPU;
-import logica.bytecode.ByteCode;
-import logica.bytecode.ByteCodeParser;
-import logica.bytecode.ByteCodeProgram;
 
 /**
  * Clase (Controlador) que se encarga del control de toda la aplicacion

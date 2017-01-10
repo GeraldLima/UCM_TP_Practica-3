@@ -3,7 +3,7 @@ package comandos;
 import control.Engine;
 
 //TODO CLASE QUE NO SE REFLEJA
-public class Reset extends Command{
+public class Reset implements Command{
 
 	@Override
 	public boolean execute(Engine engine) {
