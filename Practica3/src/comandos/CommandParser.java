@@ -11,8 +11,9 @@ public class CommandParser {
 		new Help(), 
 		new Quit(), 
 		new Reset(),
-		new ReplaceBC(), 
+		new ReplaceBC(0), 
 		new Run(), 
+		new Load(""),
 		new AddByteCodeProgram()
 	};
 	

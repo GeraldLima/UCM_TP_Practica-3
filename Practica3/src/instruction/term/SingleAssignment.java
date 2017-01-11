@@ -12,6 +12,8 @@ public class SingleAssignment implements Instruction{
 
 	private String varName;
 	private Term rhs;
+	
+	
 	@Override
 	public Instruction lexParse(String[] words, LexicalParser lexParser) {
 		if (words.length != 3)
@@ -23,13 +25,19 @@ public class SingleAssignment implements Instruction{
 			ByteCode bc = new Store(index);
 			//compiler.addByteCode(b1);
 			////////
-			Term term = TermParser.parse(words[2]);
-			lexParser.increaseProgramCounter();
+			
+			lexParser.increaseProgramCounter(); //se incrementa el contador cada vez que ya haya una instruccion
+			//incrementa el array del sprogram
+			Term term = TermParser.parse(words[2]); ///el parse del termino te convierte el string en un objeto termino pork cuando
+			
 		}
 		return null;
+		//new simplraidsjdife(varname, rsh)
 	}
+	
+	
 	@Override
-	public void compile(java.lang.Compiler compiler) throws ArrayException {
+	public void compile(Compiler compiler) throws ArrayException {
 		// TODO Auto-generated method stub
 		
 	}

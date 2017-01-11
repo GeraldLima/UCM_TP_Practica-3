@@ -10,12 +10,14 @@ public class Variable implements Term {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+
 	@Override
 	public Term parse(String term) {
 		if (term.length() != 1)
 			return null;
 		else{
-			char name = term.charAt(0);
+			char name = term.charAt(0); //lo convierte a char pork sino no se puede hacer la comparacion
 			if ('a' <= name && name <= 'z')
 				return new Variable(term);
 			else

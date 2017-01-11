@@ -1,21 +1,18 @@
 package exceptions;
 
-@SuppressWarnings("serial")
-public class ArrayException extends Exception {
-
-	/**
-	 * 
-	 */
+public class DivisionByZeroException {
+	
 	
 	private String infoError = " ";
 	
-	public ArrayException (String s){
-			
+	public DivisionByZeroException (String s){	
+	
 		 this.infoError = s;
 	}
-		
+	
 	public String toString(){
 	
 		return this.infoError;	
 	}
+
 }

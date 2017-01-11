@@ -1,4 +1,6 @@
 package control;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import bytecode.ByteCode;
@@ -11,7 +13,10 @@ import comandos.SourceProgram;
 import elements.CPU;
 import elements.LexicalParser;
 import exceptions.ArrayException;
+import exceptions.BadFormatByteCodeException;
+import exceptions.ExecutionErrorException;
 import exceptions.LexicalAnalysisException;
+import exceptions.StackException;
 
 /**
  * Clase (Controlador) que se encarga del control de toda la aplicacion
@@ -45,8 +50,14 @@ public class Engine {
 	
 	/**
 	 * Metodo que se encarga del control de la aplicacion
+	 * @throws BadFormatByteCodeException 
+	 * @throws ArrayException 
+	 * @throws LexicalAnalysisException 
+	 * @throws ExecutionErrorException 
+	 * @throws StackException 
+	 * @throws FileNotFoundException 
 	 */
-	public void start() {	
+	public void start() throws StackException, ExecutionErrorException, LexicalAnalysisException, ArrayException, BadFormatByteCodeException {	
 			
 		this.end = false;
 		String line = "";
@@ -58,30 +69,38 @@ public class Engine {
 			Command comando = null;
 			line = in.nextLine();
 			line = line.trim();
-			comando = CommandParser.parse(line);
+			
+			try{
+				comando = CommandParser.parse(line);
 		
-		if (comando == null) {
-			
-			System.out.println("Error: Comando incorrecto");
-		} 
-		else {
-			
-			System.out.println("Comienza la ejecución de " + comando);
-			
-			if (!comando.execute(this))
-			
-				System.out.println("Error: Ejecucion incorrecta del comando");
-		}
+				if (comando == null) {
+					
+					System.out.println("Error: Comando incorrecto");
+				} 
+				else {
+					
+					System.out.println("Comienza la ejecución de " + comando);
+					
+					if (!comando.execute(this))
+					
+						System.out.println("Error: Ejecucion incorrecta del comando");
+				}
+				
+				if (this.program.getPosicion() != 0)
+					System.out.println();	
+					System.out.println("Programa almacenado: " + System.getProperty("line.separator"));
+					System.out.println(this.program);
+					
+			}
+					
+			catch(FileNotFoundException e){
+				System.out.println("EXCEPCION: Fichero no encontrado...");
+			}			
+		}//end while
 		
-		if (this.program.getPosicion() != 0)
-			System.out.println();
-			System.out.println("Programa almacenado: " + System.getProperty("line.separator"));
-			System.out.println(this.program);
-		}
-		
+	
 		System.out.println("Fin de la ejecucion....");
 		in.close();
-		
 		
 	}
 	
@@ -215,6 +234,9 @@ public class Engine {
 		
 		return correcto;			
 	}
+	
+	
+	
 	public void compile() throws LexicalAnalysisException, ArrayException {
 		try {
 			this.lexicalAnalysis();
@@ -225,10 +247,38 @@ public class Engine {
 		}
 	}
 	private void lexicalAnalysis() throws LexicalAnalysisException {
-		
+		//TODO FALTA
 	}
 	private void generateByteCode() throws ArrayException {
-		
+		//TODO FALTA
+			//compiler.compile(pProgram);
 	}
+
+	
+	public boolean loadFich(String nombre) throws FileNotFoundException {
+		
+		Scanner sc = new Scanner(new File(nombre));
+		String line = ""; //lee cada linea
+		
+		
+		//sProgram.iniProgram();
+		//pProgram.iniProgram();
+		//bcProgram.iniProgram();
+		
+		do{
+			
+			line = sc.nextLine();
+			//sProgram.ponerinstruccion(line);
+		}while(!line.equals("end"));
+		
+		sc.close();
+		System.out.println(this.sProgram);
+		//mostrarProgramaFuente();
+		
+		return true;
+	}
+	
+	
+	
 }
 

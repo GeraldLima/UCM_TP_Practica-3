@@ -1,6 +1,7 @@
 package instruction.term;
 
 import instruction.Instruction;
+import elements.Compiler;
 import elements.LexicalParser;
 import exceptions.ArrayException;
 

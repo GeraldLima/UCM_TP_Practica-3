@@ -1,19 +1,21 @@
 package comandos;
 
 import control.Engine;
+import exceptions.ArrayException;
+import exceptions.LexicalAnalysisException;
 
 public class Compile implements Command {
 
 	@Override
-	public boolean execute(Engine engine) {
-		// TODO Auto-generated method stub
+	public boolean execute(Engine engine) throws LexicalAnalysisException, ArrayException {
+		engine.compile();
 		return false;
 	}
 
 	@Override
 	public Command parse(String[] s) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return CommandParser.parse(s[0]);
 	}
 
 	@Override
