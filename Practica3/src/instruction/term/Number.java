@@ -3,6 +3,10 @@ package instruction.term;
 import bytecode.ByteCode;
 
 public class Number implements Term {
+	
+	public Number (int n){
+		
+	}
 
 	@Override
 	public Term parse(String term) {

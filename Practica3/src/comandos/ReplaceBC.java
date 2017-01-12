@@ -24,7 +24,7 @@ public class ReplaceBC implements Command{
 
 	@Override
 	public Command parse(String[] s) {
-		if(s.length != 2 || !s[0].equalsIgnoreCase("REPLACE")) 
+		if(s.length != 2 || !s[0].equalsIgnoreCase("REPLACEBC")) 
 			return null;
 						
 		else 
@@ -34,13 +34,13 @@ public class ReplaceBC implements Command{
 	@Override
 	public String textHelp() {
 		
-		return "REPLACE N: Reemplaza la instruccion N por la solicitada al usuario" + 
+		return "REPLACEBC N: Reemplaza la instruccion N por la solicitada al usuario" + 
 				System.getProperty("line.separator");
 	}
 
 	
 	public String toString(){
-		return "REPLACE";
+		return "REPLACEBC";
 	}
 	
 	

@@ -7,10 +7,12 @@ import comandos.SourceProgram;
 import exceptions.LexicalAnalysisException;
 
 
-//recorre el array sprogram k hay una linea en cada pos del array, consigo la primera si es igual al centinela 
-//entonces true y termino
-//y si no , pues tenemos k meter un aline en el pProgram
-//se encarga del control d convertir el string a instruccion ejemplo x = 5 lo convierte en unasimple asignacion
+/*recorre el array sprogram k hay una linea en cada pos del array, 
+consigo la primera si es igual al centinela entonces true y termino
+y si no , pues tenemos k meter un aline en el pProgram
+se encarga del control d convertir el string a instruccion 
+	ejemplo x = 5 lo convierte en una simple asignacion
+*/
 public class LexicalParser {
 
 	private SourceProgram sProgram;

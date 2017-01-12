@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import control.Engine;
 import exceptions.ArrayException;
 import exceptions.BadFormatByteCodeException;
-import exceptions.DivisionByZeroException;
 import exceptions.ExecutionErrorException;
 import exceptions.LexicalAnalysisException;
 import exceptions.StackException;

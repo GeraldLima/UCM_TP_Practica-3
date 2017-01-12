@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import control.Engine;
 
 
-//hacer su parse
 public class Load implements Command {
 
 	private String nombre;
@@ -17,7 +16,7 @@ public class Load implements Command {
 	
 	@Override
 	public boolean execute(Engine engine) throws FileNotFoundException {
-		// TODO Auto-generated method stub
+		
 		 return engine.loadFich(nombre);
 	}
 

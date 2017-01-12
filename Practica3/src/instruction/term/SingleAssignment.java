@@ -3,7 +3,6 @@ package instruction.term;
 import instruction.Instruction;
 import bytecode.ByteCode;
 import bytecode.oneParameterInstructions.Store;
-import comandos.Compile;
 import elements.Compiler;
 import elements.LexicalParser;
 import exceptions.ArrayException;

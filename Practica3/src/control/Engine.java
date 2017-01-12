@@ -24,7 +24,7 @@ import exceptions.StackException;
  */
 public class Engine {	
 
-	private ByteCodeProgram	program;
+	private ByteCodeProgram	program; //TODO cambiar el nombre....vaya chorrada (.)
 	private boolean end;
 	private Scanner in;
 	private CPU cpu;
@@ -246,6 +246,7 @@ public class Engine {
 			System.err.println("Error del analisis lexico");
 		}
 	}
+	
 	private void lexicalAnalysis() throws LexicalAnalysisException {
 		//TODO FALTA
 	}

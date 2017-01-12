@@ -21,12 +21,17 @@ public class IfThen implements Instruction {
 	@Override
 	public void compile(Compiler compiler) throws ArrayException {
 		ConditionalJumps conditionalJ;
+		
 		condition.compile(compiler);
 		compiler.compile(ifThenBody);
+		
 		conditionalJ = condition.conditionalJ;
 		int num = compiler.getSizeProgram();
 		//conditionalJ.setN(num);
-		//TODO algo falla comentario notas
+		//TODO 
+		//TODO
+		//TODO algo falla .... leer comentario notas
+		
 	}
 
 

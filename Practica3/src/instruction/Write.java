@@ -6,9 +6,12 @@ import exceptions.ArrayException;
 
 public class Write implements Instruction {
 
+	private String varName;
+	
+	
 	@Override
 	public Instruction lexParse(String[] words, LexicalParser lexParser) {
-		// TODO Auto-generated method stub
+			
 		return null;
 	}
 
