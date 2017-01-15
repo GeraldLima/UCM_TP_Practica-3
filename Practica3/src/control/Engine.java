@@ -1,5 +1,6 @@
 package control;
 import java.io.File;
+
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
@@ -17,25 +18,25 @@ import exceptions.BadFormatByteCodeException;
 import exceptions.ExecutionErrorException;
 import exceptions.LexicalAnalysisException;
 import exceptions.StackException;
-
+import elements.Compiler;
 /**
  * Clase (Controlador) que se encarga del control de toda la aplicacion
  *
  */
 public class Engine {	
 
-	private ByteCodeProgram	program; //TODO cambiar el nombre....vaya chorrada (.)
+	private ByteCodeProgram	program;
 	private boolean end;
 	private Scanner in;
 	private CPU cpu;
 	private final static String MARCAFIN = "end";
-	//TODO ANIADIDO
+	//TODO
 	private Compiler compiler;
 	private LexicalParser lexicalParser;
 	private SourceProgram sProgram;
 	private ParsedProgram pProgram;
-	private ByteCodeProgram bcProgram;
-	//private boolean end;
+	//private ByteCodeProgram bcProgram;
+	
 	/**
 	 * Constructora de la clase
 	 */
@@ -44,7 +45,12 @@ public class Engine {
 		end = false;
 		program = new ByteCodeProgram();
 		in = new Scanner(System.in);
-		
+		sProgram = new SourceProgram();
+		pProgram = new ParsedProgram();
+		//bcProgram = new ByteCodeProgram();
+		lexicalParser = new LexicalParser();
+		compiler = new Compiler();
+		lexicalParser = new LexicalParser();
 	}
 	
 	
@@ -81,15 +87,17 @@ public class Engine {
 					
 					System.out.println("Comienza la ejecución de " + comando);
 					
-					if (!comando.execute(this))
-					
-						System.out.println("Error: Ejecucion incorrecta del comando");
+				//	if (!comando.execute(this))
+					comando.execute(this);
+						//System.out.println("Error: Ejecucion incorrecta del comando");
 				}
 				
 				if (this.program.getPosicion() != 0)
 					System.out.println();	
-					System.out.println("Programa almacenado: " + System.getProperty("line.separator"));
-					System.out.println(this.program);
+					//System.out.println("Programa almacenado: " + System.getProperty("line.separator"));
+				System.out.println(this.program);
+				System.out.println(this.sProgram);
+					//System.out.println(this.bcProgram);
 					
 			}
 					
@@ -128,16 +136,6 @@ public class Engine {
 	
 	
 	
-	/**
-	 * Metodo que se encarga de reinicializar el array de programa por defecto y su contador
-	 */
-	public boolean reset(){
-		
-		boolean ok = true;
-		program.inicializa();
-		return ok;
-	}
-	
 	
 	/**
 	 * Metodo que se encarga de reemplazar una instruccion por otra
@@ -171,7 +169,7 @@ public class Engine {
 	 
 	
 	/**
-	 * Metodo wue sirve para salir del programa
+	 * Metodo queue sirve para salir del programa
 	 */
 	public boolean quit(){
 		return end = true;
@@ -182,11 +180,11 @@ public class Engine {
 	 * Metodo que se encarga de mostrar la ayuda
 	 * @return true si se ha mostrado la ayuda
 	 */
-	public boolean mostrarAyuda(){
+	public void mostrarAyuda(){
 		
 		System.out.println();
 		CommandParser.showHelp();
-		return true;
+
 	}
 	
 	
@@ -238,42 +236,59 @@ public class Engine {
 	
 	
 	public void compile() throws LexicalAnalysisException, ArrayException {
+		
 		try {
+			
 			this.lexicalAnalysis();
 			this.generateByteCode();
 		}
+		
 		catch (LexicalAnalysisException e){
-			System.err.println("Error del analisis lexico");
+			
+			System.out.println("Error. No se ha introducido nunguna variable ni numero" + e);
+			//System.exit(0);//PONER AQUI LA salida o en el bucle de arriba ....
+			end = true;
+		}
+		catch (ArrayException e2){
+			System.out.println("Erro. Se ha salido del limite del array" + e2);
 		}
 	}
 	
+	
 	private void lexicalAnalysis() throws LexicalAnalysisException {
-		//TODO FALTA
+			
+		
+		lexicalParser.inicializar(sProgram);
+		lexicalParser.lexicalParser(pProgram, "end");
 	}
+	
+	
 	private void generateByteCode() throws ArrayException {
-		//TODO FALTA
-			//compiler.compile(pProgram);
+					
+		compiler.inicialize(program);
+		compiler.compile(pProgram);
 	}
 
+	
 	
 	public boolean loadFich(String nombre) throws FileNotFoundException {
 		
 		Scanner sc = new Scanner(new File(nombre));
 		String line = ""; //lee cada linea
 		
-		
-		//sProgram.iniProgram();
-		//pProgram.iniProgram();
-		//bcProgram.iniProgram();
+		 sProgram.inicializa();
+		 pProgram.inicializa();
+		 program.inicializa();
 		
 		do{
 			
 			line = sc.nextLine();
-			//sProgram.ponerinstruccion(line);
+			line.trim();
+			sProgram.aniadirInstruccion(line);
 		}while(!line.equals("end"));
 		
 		sc.close();
-		System.out.println(this.sProgram);
+		//System.out.println(this.sProgram);
 		//mostrarProgramaFuente();
 		
 		return true;

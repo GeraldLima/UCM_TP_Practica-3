@@ -1,16 +1,16 @@
 package exceptions;
 
-import java.util.concurrent.ExecutionException;
 
 
-@SuppressWarnings("serial")
-public class ExecutionErrorException extends ExecutionException {
+public class ExecutionErrorException extends Exception {
 
+	
+	private static final long serialVersionUID = 1L;
 	/**
 	 * 
 	 */
 
-	private String infoError = " ";
+	private String infoError = " Fallo de ejecucion";
 	
 	public ExecutionErrorException (String s){	
 	

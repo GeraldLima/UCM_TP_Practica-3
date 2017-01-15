@@ -5,9 +5,9 @@ import control.Engine;
 public class Quit implements Command{
 
 	@Override
-	public boolean execute(Engine engine) {
+	public void execute(Engine engine) {
 		
-		return engine.quit();
+		 engine.quit();
 	}
 
 	@Override

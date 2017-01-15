@@ -79,18 +79,27 @@ public class SourceProgram {
 	/**
 	 * Metodo muestra la informacion del programa principal
 	 */
-	public String toString(){		
-	String s = "";
+	public String toString(){	
 		
+	String s = "";
+	
+			s = s + "Programa fuente almacenado: " + System.getProperty("line.separator");
+	  
 		for (int i = 0; i < getPosicion(); i++){
 			
 		    String instruccion = devolverString(i); //devuelvo la instruccion en dicha posicion
-		    
+		  
 		     s = s + i + ": " + instruccion + System.getProperty("line.separator");			
 		}
 					
 		return s;
+		
+		
+		
 	}
+
+
+
 	
 	
 }

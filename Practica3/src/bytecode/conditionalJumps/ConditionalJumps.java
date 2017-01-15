@@ -21,7 +21,7 @@ public abstract class ConditionalJumps extends ByteCodeOneParameter{
 			int n1 = cpu.pop(); //cima
 			int n2 = cpu.pop(); //subcima
 			
-			if(compare(n2, n1)){
+			if(compare(n2, n1/*, cpu*/)){
 				
 				cpu.increaseProgramCounter();
 			}
@@ -35,7 +35,14 @@ public abstract class ConditionalJumps extends ByteCodeOneParameter{
 		
 		return false;
 	}
-
 	
-	abstract protected boolean compare(int n1, int n2);
+	/**
+	 * Metodo que modifica el valor del salto
+	 * @param n, parametro que recibe
+	 */
+	public void setN(int n){
+		super.setN(n);
+	}
+	
+	abstract protected boolean compare(int n1, int n2/*, CPU cpu*/);
 }

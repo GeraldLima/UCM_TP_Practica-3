@@ -5,9 +5,9 @@ import control.Engine;
 public class Run implements Command{
 
 	@Override
-	public boolean execute(Engine engine) {
+	public void execute(Engine engine) {
 		
-		return engine.run();
+		 engine.run();
 	}
 
 	@Override

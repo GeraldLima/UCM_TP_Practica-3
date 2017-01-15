@@ -5,9 +5,9 @@ import control.Engine;
 public class Help implements Command{
 
 	@Override
-	public boolean execute(Engine engine) {
+	public void execute(Engine engine) {
 		
-		return engine.mostrarAyuda();
+	 engine.mostrarAyuda();
 	}
 
 	@Override
@@ -21,7 +21,7 @@ public class Help implements Command{
 	@Override
 	public String textHelp() {
 		
-		return "HELP: muestra la ayuda" + System.getProperty("line.separator");
+		return "HELP: muestra la ayuda correspondiente a los comandos" + System.getProperty("line.separator");
 	}
 	
 	public String toString(){

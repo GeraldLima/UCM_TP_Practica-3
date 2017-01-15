@@ -5,7 +5,7 @@ import bytecode.ByteCode;
 public abstract class ByteCodeOneParameter implements ByteCode{
 
 	protected int param;
-	
+
 	public ByteCodeOneParameter(){
 		
 	}
@@ -30,6 +30,10 @@ public abstract class ByteCodeOneParameter implements ByteCode{
 		
 		return this.toStringAux() + " " + this.param;
 	
+	}
+	
+	public void setN(int n){
+		this.param = n;
 	}
 	
 	abstract protected ByteCode parseAux(String string1, String string2);

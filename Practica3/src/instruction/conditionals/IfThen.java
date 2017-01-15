@@ -1,37 +1,66 @@
 package instruction.conditionals;
 
-import instruction.Instruction;
 import bytecode.conditionalJumps.ConditionalJumps;
+import instruction.Instruction;
 import comandos.ParsedProgram;
 import elements.Compiler;
 import elements.LexicalParser;
 import exceptions.ArrayException;
+import exceptions.LexicalAnalysisException;
 
 public class IfThen implements Instruction {
 	
 	private Condition condition;
-	private ParsedProgram ifThenBody;
+	private ParsedProgram body;
+	
+	/**
+	 * Constructora por defecto
+	 */
+	public IfThen(){
+		
+	}
+	
+	/**
+	 * Constructora con parametros
+	 */
+	public IfThen(Condition cd, ParsedProgram ifBody){
+		this.condition = cd;
+		this.body = ifBody;
+	}
+	
 	
 	@Override
-	public Instruction lexParse(String[] words, LexicalParser lexParser) {
-		// TODO Auto-generated method stub
-		return null;
+	public Instruction lexParse(String[] words, LexicalParser lexParser) throws LexicalAnalysisException {
+				
+		if(words.length != 4){
+			return null;
+		}
+		
+		else{
+			
+			if(!words[0].equals("if")){
+				return null;		
+			}
+				
+		Condition cond = ConditionParser.parse(words[1], words[2], words[3], lexParser);
+		ParsedProgram ifbody = new ParsedProgram();
+		lexParser.lexicalParser(ifbody, "ENDIF");
+		lexParser.increaseProgramCounter();
+		
+		return new IfThen(cond, ifbody);
+		}
 	}
 
+	//TODO completado
 	@Override
 	public void compile(Compiler compiler) throws ArrayException {
-		ConditionalJumps conditionalJ;
 		
-		condition.compile(compiler);
-		compiler.compile(ifThenBody);
-		
-		conditionalJ = condition.conditionalJ;
-		int num = compiler.getSizeProgram();
-		//conditionalJ.setN(num);
-		//TODO 
-		//TODO
-		//TODO algo falla .... leer comentario notas
-		
+		this.condition.compile(compiler); 
+		compiler.compile(this.body);
+		ConditionalJumps cj = this.condition.conditionalJ;
+		int n = compiler.getSizeBcProgram();
+		cj.setN(n);
+				
 	}
 
 

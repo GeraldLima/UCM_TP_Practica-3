@@ -17,9 +17,9 @@ public class ReplaceBC implements Command{
 	
 		
 	@Override
-	public boolean execute(Engine engine) {
+	public void execute(Engine engine) {
 		
-		return engine.replace(this.pos);
+		engine.replace(this.pos);
 	}
 
 	@Override

@@ -11,8 +11,8 @@ import exceptions.StackException;
 
 
 public interface Command {
-	
-	abstract public boolean execute(Engine engine) throws /*java.io.*/FileNotFoundException, LexicalAnalysisException, 
+	//TODO ahora el ejecute es de tipo void
+	abstract public void execute(Engine engine) throws FileNotFoundException, LexicalAnalysisException, 
 									ArrayException, BadFormatByteCodeException, StackException, ExecutionErrorException;
 	abstract public Command parse(String[ ] s);
 	abstract public String textHelp();

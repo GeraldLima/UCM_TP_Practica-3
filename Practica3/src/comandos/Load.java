@@ -15,9 +15,9 @@ public class Load implements Command {
 	
 	
 	@Override
-	public boolean execute(Engine engine) throws FileNotFoundException {
+	public void execute(Engine engine) throws FileNotFoundException {
 		
-		 return engine.loadFich(nombre);
+		 engine.loadFich(nombre);
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class Load implements Command {
 	@Override
 	public String textHelp() {
 		
-		return "LOAD FICH: Carga un fichero" + System.getProperty("line.separator");
+		return "LOAD FICH: Carga el fichero de nombre FICH como programa fuente" + System.getProperty("line.separator");
 	}
 	
 	public String toString(){

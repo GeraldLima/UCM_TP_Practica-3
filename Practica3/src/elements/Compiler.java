@@ -1,16 +1,16 @@
 package elements;
 
-import javax.management.openmbean.ArrayType;
-
 import bytecode.ByteCode;
+
 import bytecode.ByteCodeProgram;
 import comandos.ParsedProgram;
 import exceptions.ArrayException;
 import instruction.Instruction;
 
-//TODO falta
+//TODO completada
 public class Compiler {
 
+	private static final int DIM = 50;
 	private ByteCodeProgram bcProgram;
 	private String[] varTable;
 	private int numVariables;
@@ -19,52 +19,87 @@ public class Compiler {
 		
 	}
 
-	
-	//TODO 
-	//TODO
-	//TODO aniadido creo q va a getIndex!!!
-	public int addVariable(String varName){
-		boolean encontrado = false;
-		int i=0;
-		while (i < bcProgram.getPosicion()-1 && !encontrado){
-			if (varName == varTable[i]){
-				encontrado = true;
-				return i;
-			}
-			else
-				i++;
-		}
-		if (!encontrado)
-			i= -1;
-		return i;
+	public void inicialize(ByteCodeProgram bcProgram){
+		this.bcProgram = bcProgram;
+		this.varTable = new String[DIM];
+		this.numVariables = 0;
 	}
-	public int getSizeProgram(){
+
+	public void compile(ParsedProgram pProgram) throws ArrayException{
+		
+		int i = 0;
+		
+		try{
+			
+			while(i < pProgram.getPosicion()){
+				Instruction inst = pProgram.devolverString(i);
+				inst.compile(this);
+				i++;
+			}
+		}
+		catch(ArrayException e){	
+			//System.err.println("Error de compilacion. Clase Compile");
+		}
+	}
+	
+	/**
+	 * Metodo que se encarga de aniadir una instruccion ByteCode
+	 * @param b, instruccion a añadir
+	 * @throws ArrayException
+	 */
+	public void addByteCode(ByteCode b) throws ArrayException{
+		bcProgram.aniadirInstruccion(b);
+	}
+	
+	
+	
+	public int getIndex(String varName){
+		
+		int i = 0;
+		boolean encontrado = false;
+		
+		while(i < numVariables && !encontrado){
+			
+			if(varTable[i].equals(varName)){
+				encontrado = true;
+			}
+			
+			i++;
+		}
+		
+		if(encontrado)
+			return i - 1;
+		
+		
+		else{
+			
+			i = this.addVariable(varName);
+			return i;
+		}
+	}
+	
+	
+	public int addVariable(String varName){
+	
+		this.varTable[this.numVariables] = varName;
+		this.numVariables++;
+		
+		return this.numVariables - 1;
+	}
+	
+	public int getSizeBcProgram(){
 		return bcProgram.getPosicion();
 	}
 	
-	public void addByteCode(ByteCode bc) {
-		// TODO Auto-generated method stub
-		
-	}
 	
-	public int getIndex(String varName) {
-		// TODO Auto-generated method stub
+	public int indexOf(java.lang.String varName){
 		return 0;
 	}
-	public void initialize(ByteCodeProgram bcProgram){
-		//TODO what..?¿?
-	}
-	public void compile(ParsedProgram pProgram) throws ArrayException{
-		int i=0;
-		try{
-			Instruction instruction;
-			while (i < pProgram.getPosicion()){
-				instruction = pProgram.devolverString(i);
-				instruction.compile(this);
-				i++;
-			}
-		}catch (ArrayException e){
-			System.err.println("Error de compilacion. Clase Compile");
-		}
-	}
+	
+	
+	
+	
+	
+	
+	
 }

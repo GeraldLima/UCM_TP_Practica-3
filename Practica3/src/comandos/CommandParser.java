@@ -8,11 +8,11 @@ public class CommandParser {
 	private final static Command[] commands ={
 		new Help(), 
 		new Quit(), 
-		new Reset(),
-		new ReplaceBC(0), 
+		new ReplaceBC(), 
 		new Run(), 
 		new Load(""),
-		new AddByteCodeProgram()
+		new AddByteCodeProgram(),
+		new Compile()
 	};
 	
 	
@@ -54,11 +54,5 @@ public class CommandParser {
 	}
 
 	
-		
-	/*
-	
-	/*private static boolean isNum(String s){
-		return (s.matches("[+-]?\\d*(\\.\\d+)?") && s.equals("") == false);
-	}*/
 	
 }

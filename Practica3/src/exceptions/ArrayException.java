@@ -7,7 +7,7 @@ public class ArrayException extends Exception {
 	 * 
 	 */
 	
-	private String infoError = " ";
+	private String infoError = " Violacion de array";
 	
 	public ArrayException (String s){
 			

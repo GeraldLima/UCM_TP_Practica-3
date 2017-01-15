@@ -8,7 +8,7 @@ public class BadFormatByteCodeException extends Exception {
 	 * 
 	 */
 	
-	private String infoError = " ";
+	private String infoError = "Fallo de formato de instruccion ";
 	
 	public BadFormatByteCodeException (String s){	
 	

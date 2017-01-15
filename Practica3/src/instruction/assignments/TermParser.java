@@ -1,4 +1,4 @@
-package instruction.term;
+package instruction.assignments;
 
 public class TermParser {
 	

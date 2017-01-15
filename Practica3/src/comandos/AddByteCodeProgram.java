@@ -6,9 +6,9 @@ import control.Engine;
 public class AddByteCodeProgram implements Command{
 
 	@Override
-	public boolean execute(Engine engine) {
+	public void execute(Engine engine) {
 		
-		return engine.readByteCodeProgram();
+		 engine.readByteCodeProgram();
 	}
 
 	@Override

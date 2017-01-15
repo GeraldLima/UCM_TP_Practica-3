@@ -1,4 +1,4 @@
-package instruction;
+	package instruction;
 
 import elements.Compiler;
 import elements.LexicalParser;

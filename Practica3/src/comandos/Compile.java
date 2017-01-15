@@ -3,25 +3,39 @@ package comandos;
 import control.Engine;
 import exceptions.ArrayException;
 import exceptions.LexicalAnalysisException;
-//TODO falta
+
+
+
+//TODO COMPLETADA
 public class Compile implements Command {
 
+	public Compile(){
+		
+	}
+	
 	@Override
-	public boolean execute(Engine engine) throws LexicalAnalysisException, ArrayException {
+	public void execute(Engine engine) throws LexicalAnalysisException, ArrayException { //de tipo void
 		engine.compile();
-		return false;
+		
 	}
 
 	@Override
 	public Command parse(String[] s) {
-		
-		return CommandParser.parse(s[0]);
+		if(s.length != 1  || !s[0].equalsIgnoreCase("COMPILE")) 
+			return null;
+						
+		else 
+			return new Compile();
 	}
 
 	@Override
 	public String textHelp() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return "COMPILE: realiza el analisis lexico del programa fuente" + System.getProperty("line.separator");
 	}
 
+	//TODO
+	public String toString(){
+		 return "COMPILE";
+	}
 }

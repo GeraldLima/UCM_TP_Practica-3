@@ -92,7 +92,9 @@ public class ByteCodeProgram {
 	 * Metodo muestra la informacion del programa principal
 	 */
 	public String toString(){		
+		
 	String s = "";
+		s = s + "Programa ByteCode almacenado:" + System.getProperty("line.separator");
 		
 		for (int i = 0; i < getPosicion(); i++){
 			
@@ -103,24 +105,6 @@ public class ByteCodeProgram {
 					
 		return s;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

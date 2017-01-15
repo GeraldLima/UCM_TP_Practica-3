@@ -5,8 +5,12 @@ public class StackException extends StackOverflowError {
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
 
-	private String infoError = " ";
+	private String infoError = "Violacion de pila";
 	
 	public StackException (String s){
 		

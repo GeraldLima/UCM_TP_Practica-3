@@ -1,18 +1,23 @@
 package exceptions;
 
-public class DivisionByZeroException {
-	
-	
-	private String infoError = " ";
+
+//TODO arreglada
+public class DivisionByZeroException extends ExecutionErrorException {
+		
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	
 	public DivisionByZeroException (String s){	
 	
-		 this.infoError = s;
+		super(s);
 	}
 	
 	public String toString(){
 	
-		return this.infoError;	
+		return super.toString();	
 	}
 
 }
