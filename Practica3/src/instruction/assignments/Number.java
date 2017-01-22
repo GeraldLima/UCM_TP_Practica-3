@@ -4,7 +4,6 @@ import bytecode.ByteCode;
 import bytecode.oneParameterInstructions.Push;
 import elements.Compiler;
 
-//TODO COMPLETADA
 public class Number implements Term {
 	
 	private int num;
@@ -18,7 +17,9 @@ public class Number implements Term {
 		this.num = n;
 	}
 
-	
+	/**
+	 * Parsea el termino
+	 */
 	@Override
 	public Term parse(String term) {
 		

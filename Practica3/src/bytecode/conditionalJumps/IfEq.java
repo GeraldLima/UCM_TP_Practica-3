@@ -23,8 +23,13 @@ public class IfEq extends ConditionalJumps{
 	protected ByteCode parseAux(String string1, String string2) {
 		
 		if(string1.equalsIgnoreCase("IFEQ")){
+			try{
 			int param = Integer.parseInt(string2);
 			return new IfEq(param);
+			}
+			catch(NumberFormatException e){
+				System.out.println("EXCEPCION: Formato numerico incorrecto");
+			}
 		}
 		
 		return null;

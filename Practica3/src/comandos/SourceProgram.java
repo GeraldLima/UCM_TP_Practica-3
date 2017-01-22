@@ -1,9 +1,11 @@
 package comandos;
 
+import exceptions.ArrayException;
+
 public class SourceProgram {
 	
 
-	private static final int TAM = 1;
+	private static final int TAM = 50;
 	private String[] sProgram;
 	private int pos;
 	
@@ -20,15 +22,25 @@ public class SourceProgram {
 	/**
 	 * Metodo que se encarga de aniadir una instruccion
 	 * @param inst, instruccion a aniadir
+	 * @throws ArrayException 
 	 */
-	public void aniadirInstruccion(String inst){
+	public void aniadirInstruccion(String inst) throws ArrayException{
 		
-		if (sProgram[TAM-1] != null) {
+		/*if (sProgram[TAM-1] != null) {
 			String [] programAux = new String[pos*2];		
 			copiarDatos(programAux);
-		}				
+		}	*/
+		
+		
+		try{
+			
 		sProgram[pos] = inst;
 		pos = pos + 1;
+		
+		}
+		catch(Exception e){
+			throw new ArrayException(" " + this.getPosicion());
+		}
 	}	
 	
 	
@@ -45,21 +57,24 @@ public class SourceProgram {
 	 * Metodo que se encarga de copiar los datos
 	 * @param prog
 	 */
-	private void copiarDatos(String[] prog){
+	/*private void copiarDatos(String[] prog){
 		for (int i = 0; i < sProgram.length; i++) {
 			prog[i] = sProgram[i];
 		}
 		sProgram = prog;
-	}
+	}*/
 	
 	
 	/**
 	 * Metodo que devuelve la instruccion enesima del programa
 	 * @param enesima, instruccion
 	 * @return devuelve la instruccion enesima
+	 * @throws ArrayException 
 	 */
-	public String devolverString(int pos){  //devolver instriccion
-		return sProgram[pos];
+	public String devolverString(int pos){
+		
+	
+			return sProgram[pos];
 	}
 	
 	

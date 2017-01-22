@@ -1,12 +1,12 @@
 package comandos;
 
 import control.Engine;
+import exceptions.ArrayException;
 
-//TODO CLASE QUE NO SE REFLEJA.. daba error pork habia que cambiar el extends por implements
 public class AddByteCodeProgram implements Command{
 
 	@Override
-	public void execute(Engine engine) {
+	public void execute(Engine engine) throws ArrayException {
 		
 		 engine.readByteCodeProgram();
 	}

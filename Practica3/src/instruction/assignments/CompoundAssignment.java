@@ -62,21 +62,18 @@ public class CompoundAssignment implements Instruction {
 			return null;
 		}
 		
-		///////////////////////////////////////
+		if(!words[3].equals("+") && words[3].equals("-") && words[3].equals("*") && words[3].equals("/"))
+			return null;
+		
 		String varName = words[0]; //nombre de la variable en la pos 0
-		Term term1 = TermParser.parse(words[2]);
-		
 		String op = words[3];
-		
+		Term term1 = TermParser.parse(words[2]);
 		Term term2 = TermParser.parse(words[4]);
 		
-		if(term1 == null || term2 == null){
-			if (op != "+" || op != "-" || op != "*" || op != "/")
-				return null;
-		}
-			
+		if(term1 == null || term2 == null)
+			return null;
+		
 		lexParser.increaseProgramCounter();
-		/////////////////////////////////////////////////
 
 		return new CompoundAssignment(varName, op, term1, term2);
 	}
@@ -86,33 +83,24 @@ public class CompoundAssignment implements Instruction {
 	@Override
 	public void compile(Compiler compiler) throws ArrayException {
 		
-		//cargamos byteCodes en compiler que han sido generados en t1 y t2
+		int index = compiler.getIndex(varName);
 		compiler.addByteCode(t1.compile(compiler));
 		compiler.addByteCode(t2.compile(compiler));
 		
 		
-		//ByteCode bytecodeAux = null;
-			
-		//segun el operador se aniade una arimeticologica u otra	
-		if (operator == "+")
-			//bytecodeAux = new Add();
-		compiler.addByteCode(new Add());
+		if (operator.equals("+"))
+			compiler.addByteCode(new Add());
 		
-		else if (operator == "-")
-			//bytecodeAux = new Sub();
-		compiler.addByteCode(new Sub());
+		if (operator.equals("-"))
+			compiler.addByteCode(new Sub());
 		
-		else if (operator == "/")
-			//bytecodeAux = new Div();
-		compiler.addByteCode(new Div());
+		if (operator.equals("/"))
+			compiler.addByteCode(new Div());
 		
-		else if (operator == "*")
-			//bytecodeAux = new Mul();
-		compiler.addByteCode(new Mul());
+		if (operator.equals("*"))
+			compiler.addByteCode(new Mul());
 		
-		//compiler.addByteCode(bytecodeAux);
-		
-		int index = compiler.getIndex(varName);
+	
 		compiler.addByteCode(new Store(index));
 		
 	}

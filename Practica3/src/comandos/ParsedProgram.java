@@ -1,11 +1,12 @@
 package comandos;
 
+import exceptions.ArrayException;
 import instruction.Instruction;
 
 public class ParsedProgram {
 	
 	
-	private static final int TAM = 1;
+	private static final int TAM = 50;
 	private Instruction[] pProgram;
 	private int pos;
 	
@@ -22,15 +23,22 @@ public class ParsedProgram {
 	/**
 	 * Metodo que se encarga de aniadir una instruccion
 	 * @param inst, instruccion a aniadir
+	 * @throws ArrayException 
 	 */
-	public void aniadirInstruccion(Instruction inst){
+	public void aniadirInstruccion(Instruction inst) throws ArrayException{
 		
-		if (pProgram[TAM-1] != null) {
+		/*if (pProgram[TAM-1] != null) {
 			Instruction [] programAux = new Instruction[pos*2];		
 			copiarDatos(programAux);
-		}				
-		pProgram[pos] = inst;
-		pos = pos + 1;
+		}*/
+		
+		try{
+			pProgram[pos] = inst;
+			pos = pos + 1;
+		}
+		catch(Exception e){
+			throw new ArrayException(" " + this.getPosicion());
+		}
 	}	
 	
 	
@@ -47,12 +55,12 @@ public class ParsedProgram {
 	 * Metodo que se encarga de copiar los datos
 	 * @param prog
 	 */
-	private void copiarDatos(Instruction[] prog){
+	/*private void copiarDatos(Instruction[] prog){
 		for (int i = 0; i < pProgram.length; i++) {
 			prog[i] = pProgram[i];
 		}
 		pProgram = prog;
-	}
+	}*/
 	
 	
 	/**

@@ -20,7 +20,7 @@ public class CommandParser {
 		// eliminar blancos innecesarios igual que en la Práctica_1 1ine = line.trim();
 		// descomponer line en palabras
 		
-		line.trim();
+		line = line.trim();
 		String[] words = line.split(" +");	
 	
 		

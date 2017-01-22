@@ -9,7 +9,11 @@ import exceptions.StackException;
 
 
 /**
+ * 
+ * @author Gerald L. and Andrea Salami
+ * 
  * Clase principal
+ *
  */
 public class Main {
 	

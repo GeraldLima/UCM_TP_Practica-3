@@ -10,7 +10,7 @@ public class ExecutionErrorException extends Exception {
 	 * 
 	 */
 
-	private String infoError = " Fallo de ejecucion";
+	private String infoError = " ";
 	
 	public ExecutionErrorException (String s){	
 	

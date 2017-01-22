@@ -1,11 +1,13 @@
 package comandos;
 
 import control.Engine;
+import exceptions.ArrayException;
+import exceptions.ExecutionErrorException;
 
 public class Run implements Command{
 
 	@Override
-	public void execute(Engine engine) {
+	public void execute(Engine engine) throws ExecutionErrorException, ArrayException {
 		
 		 engine.run();
 	}

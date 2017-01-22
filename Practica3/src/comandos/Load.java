@@ -3,6 +3,7 @@ package comandos;
 import java.io.FileNotFoundException;
 
 import control.Engine;
+import exceptions.ArrayException;
 
 
 public class Load implements Command {
@@ -15,7 +16,7 @@ public class Load implements Command {
 	
 	
 	@Override
-	public void execute(Engine engine) throws FileNotFoundException {
+	public void execute(Engine engine) throws FileNotFoundException, ArrayException {
 		
 		 engine.loadFich(nombre);
 	}

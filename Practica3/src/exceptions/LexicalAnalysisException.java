@@ -8,7 +8,7 @@ public class LexicalAnalysisException extends Exception {
 	 * 
 	 */
 
-	private String infoError = "Fallo de formato lexico";
+	private String infoError = " ";
 	
 	public LexicalAnalysisException (String s){	
 	

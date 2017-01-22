@@ -1,6 +1,7 @@
 package instruction;
 
 import elements.LexicalParser;
+import exceptions.ArrayException;
 import exceptions.LexicalAnalysisException;
 import instruction.assignments.CompoundAssignment;
 import instruction.assignments.SingleAssignment;
@@ -31,17 +32,15 @@ public class ParserInstruction {
 	 * @param lexicalParser
 	 * @return insterucion, que es la instrucion correctamente parseada
 	 * @throws LexicalAnalysisException 
+	 * @throws ArrayException 
 	 */
-	public static Instruction parse(String line, LexicalParser lexicalParser) throws LexicalAnalysisException {
+	public static Instruction parse(String line, LexicalParser lexicalParser) throws LexicalAnalysisException, ArrayException {
 		
 		int i = 0;
 		boolean encontrado = false;	
 		Instruction instruction = null;
-		line.trim();
-		//line.trim();
-		
-		String[] words = line.split(" +");
-		//words = words + line.split(" +");	
+		line = line.trim();
+		String[] words = line.split(" +");	
 	
 		while (i < instructions.length && !encontrado){	
 			instruction = instructions[i].lexParse(words, lexicalParser);	

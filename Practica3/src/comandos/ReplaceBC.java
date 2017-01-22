@@ -1,6 +1,8 @@
 package comandos;
 
 import control.Engine;
+import exceptions.ArrayException;
+import exceptions.BadFormatByteCodeException;
 
 public class ReplaceBC implements Command{
 
@@ -17,18 +19,27 @@ public class ReplaceBC implements Command{
 	
 		
 	@Override
-	public void execute(Engine engine) {
+	public void execute(Engine engine) throws ArrayException, BadFormatByteCodeException{
 		
 		engine.replace(this.pos);
 	}
 
 	@Override
 	public Command parse(String[] s) {
+		
+		try{
+					
 		if(s.length != 2 || !s[0].equalsIgnoreCase("REPLACEBC")) 
 			return null;
 						
 		else 
 			return new ReplaceBC(Integer.parseInt(s[1]));
+		}
+		
+		catch(NumberFormatException e){
+			System.out.println("EXCEPCION: Formato numerico incorrecto...");
+			return null;
+		}
 	}
 
 	@Override

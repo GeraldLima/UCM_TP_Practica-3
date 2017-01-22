@@ -1,6 +1,7 @@
 package control;
 import java.io.File;
 
+
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
@@ -30,13 +31,13 @@ public class Engine {
 	private Scanner in;
 	private CPU cpu;
 	private final static String MARCAFIN = "end";
-	//TODO
+	//TODO ANIADIDO
 	private Compiler compiler;
 	private LexicalParser lexicalParser;
 	private SourceProgram sProgram;
 	private ParsedProgram pProgram;
-	//private ByteCodeProgram bcProgram;
-	
+	private ByteCodeProgram bcProgram;
+	//private boolean end;
 	/**
 	 * Constructora de la clase
 	 */
@@ -47,10 +48,11 @@ public class Engine {
 		in = new Scanner(System.in);
 		sProgram = new SourceProgram();
 		pProgram = new ParsedProgram();
-		//bcProgram = new ByteCodeProgram();
+		bcProgram = new ByteCodeProgram();
 		lexicalParser = new LexicalParser();
 		compiler = new Compiler();
 		lexicalParser = new LexicalParser();
+		cpu = new CPU(bcProgram);
 	}
 	
 	
@@ -63,52 +65,67 @@ public class Engine {
 	 * @throws StackException 
 	 * @throws FileNotFoundException 
 	 */
-	public void start() throws StackException, ExecutionErrorException, LexicalAnalysisException, ArrayException, BadFormatByteCodeException {	
+	public void start(){	
 			
-		this.end = false;
 		String line = "";
 		
-		while (!end) {		
+		do {		
 			
-			System.out.print("> ");
-		
-			Command comando = null;
+			System.out.print("> ");	
 			line = in.nextLine();
 			line = line.trim();
 			
 			try{
-				comando = CommandParser.parse(line);
+				
+				Command comando = CommandParser.parse(line);
 		
 				if (comando == null) {
 					
 					System.out.println("Error: Comando incorrecto");
 				} 
+				
 				else {
 					
 					System.out.println("Comienza la ejecución de " + comando);
-					
-				//	if (!comando.execute(this))
 					comando.execute(this);
-						//System.out.println("Error: Ejecucion incorrecta del comando");
+						
 				}
 				
-				if (this.program.getPosicion() != 0)
-					System.out.println();	
-					//System.out.println("Programa almacenado: " + System.getProperty("line.separator"));
-				System.out.println(this.program);
-				System.out.println(this.sProgram);
-					//System.out.println(this.bcProgram);
+				if(end){
+					
+					System.out.println("Fin de la ejecucion....");	
+					in.close();
+				}
 					
 			}
 					
 			catch(FileNotFoundException e){
 				System.out.println("EXCEPCION: Fichero no encontrado...");
-			}			
-		}//end while
+			}
+			
+			catch(ExecutionErrorException e){
+				System.out.println("EXCEPCION: Error en la ejecucion del bytecode " + e.toString());
+			}
+			
+			catch(ArrayException e){
+				System.out.println("EXCEPCION: Error de acceso en la posicion" + e.toString() + " del array");
+			}
+			
+			catch(LexicalAnalysisException e){
+				System.out.println("EXCEPCION: Error de parseo en el programa fuente en la linea" + e.toString());
+			}
+			
+			catch(BadFormatByteCodeException e){
+				System.out.println("EXCEPCION: Error de formato del bytecode introducido");
+			}
+			
+			
+			
+		}while(!end);
 		
 	
-		System.out.println("Fin de la ejecucion....");
-		in.close();
+		
+		
 		
 	}
 	
@@ -116,22 +133,20 @@ public class Engine {
 	/**
 	 * Metodo que se encarga de la ejecucion del comando run
 	 * @return true si se ha ejecutado correctamente y false en caso contrario
+	 * @throws ExecutionErrorException 
 	 */
-	public boolean run(){	
-	
-		boolean ok = true;
-		
-		ok = cpu.run();
-		
-			if(ok){
-				System.out.println("El estado de la maquina tras ejecutar el programa es: ");
-				System.out.println(cpu);
-			}
+	public void run() throws ExecutionErrorException, ArrayException{	
 			
-			System.out.println();
-			cpu = new CPU(program);
+		cpu.run();
+				
+		System.out.println("El estado de la maquina tras ejecutar el programa es: ");
+		System.out.println(cpu);
+						
+		System.out.println();
+		cpu = new CPU(bcProgram);
 			
-		return ok;	
+		System.out.println(this.sProgram);	
+		System.out.println(this.bcProgram);
 	}
 	
 	
@@ -140,34 +155,38 @@ public class Engine {
 	/**
 	 * Metodo que se encarga de reemplazar una instruccion por otra
 	 * @param repl, numero de instruccion que quiero reemplazar
+	 * @throws ArrayException 
+	 * @throws BadFormatByteCodeException 
 	 */
-	public boolean replace(int repl){
+	public void replace(int repl) throws ArrayException, BadFormatByteCodeException{
 
-		boolean ok = false;
 		String str = "";	
 
 		ByteCode codByte;
+
 		
-		
-		do{			
-			System.out.print("\nNueva instruccion: ");	
+		if(repl < bcProgram.getPosicion()){
+			
+			System.out.print("\nNuevo Bytecode: ");	
 			str = this.in.nextLine();
-			str = str.trim();
-			//palabras = str.split(" ");
+			str = str.trim();	
 			
 			codByte = ByteCodeParser.parse(str);
-	
-			if (codByte != null){			
-				program.colocarInstrEnPos(codByte, repl);
-				ok = true;
-			}
 			
-		}while(codByte == null);
-		
-		return ok;
+			if (codByte != null)		
+				bcProgram.colocarInstrEnPos(codByte, repl);
+			else
+				throw new BadFormatByteCodeException("");	
 	}
+		else
+			throw new ArrayException(" " + repl);
+			
+			
+		System.out.println();
+		System.out.println(this.sProgram);
+		System.out.println(this.bcProgram);
 	 
-	
+}	
 	/**
 	 * Metodo queue sirve para salir del programa
 	 */
@@ -191,8 +210,9 @@ public class Engine {
 	/**
 	 * Metodo que se encarga de leer las instrucciones introducidas
 	 * @return true, si se han leido correctamente y false en caso contrario
+	 * @throws ArrayException 
 	 */	
-	public boolean readByteCodeProgram(){
+	public boolean readByteCodeProgram() throws ArrayException{
 		
 		boolean correcto = true;
 		String line = "";
@@ -237,25 +257,28 @@ public class Engine {
 	
 	public void compile() throws LexicalAnalysisException, ArrayException {
 		
+		pProgram.inicializa();
+		bcProgram.inicializa();
+		System.out.println(this.sProgram);
+		
 		try {
 			
 			this.lexicalAnalysis();
 			this.generateByteCode();
+			System.out.println(this.bcProgram);
 		}
 		
 		catch (LexicalAnalysisException e){
-			
-			System.out.println("Error. No se ha introducido nunguna variable ni numero" + e);
-			//System.exit(0);//PONER AQUI LA salida o en el bucle de arriba ....
-			end = true;
+			throw e;
 		}
-		catch (ArrayException e2){
-			System.out.println("Erro. Se ha salido del limite del array" + e2);
+		
+		catch(ArrayException e){
+			throw e;
 		}
 	}
 	
 	
-	private void lexicalAnalysis() throws LexicalAnalysisException {
+	private void lexicalAnalysis() throws LexicalAnalysisException, ArrayException {
 			
 		
 		lexicalParser.inicializar(sProgram);
@@ -265,33 +288,36 @@ public class Engine {
 	
 	private void generateByteCode() throws ArrayException {
 					
-		compiler.inicialize(program);
+		compiler.Inicialize(bcProgram);
 		compiler.compile(pProgram);
 	}
 
 	
 	
-	public boolean loadFich(String nombre) throws FileNotFoundException {
+	public void loadFich(String nombre) throws FileNotFoundException, ArrayException{
 		
 		Scanner sc = new Scanner(new File(nombre));
 		String line = ""; //lee cada linea
 		
 		 sProgram.inicializa();
 		 pProgram.inicializa();
-		 program.inicializa();
+		 bcProgram.inicializa();
 		
-		do{
+			try{
+				while(sc.hasNextLine()){
+				line = sc.nextLine();
+				sProgram.aniadirInstruccion(line);
+			}
+		}
+			catch(ArrayException e){
+				throw e;
+			}
+		
+			sc.close();
 			
-			line = sc.nextLine();
-			line.trim();
-			sProgram.aniadirInstruccion(line);
-		}while(!line.equals("end"));
-		
-		sc.close();
-		//System.out.println(this.sProgram);
+		System.out.println(this.sProgram);
 		//mostrarProgramaFuente();
 		
-		return true;
 	}
 	
 	

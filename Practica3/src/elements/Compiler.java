@@ -19,7 +19,7 @@ public class Compiler {
 		
 	}
 
-	public void inicialize(ByteCodeProgram bcProgram){
+	public void Inicialize(ByteCodeProgram bcProgram){
 		this.bcProgram = bcProgram;
 		this.varTable = new String[DIM];
 		this.numVariables = 0;
@@ -38,7 +38,7 @@ public class Compiler {
 			}
 		}
 		catch(ArrayException e){	
-			//System.err.println("Error de compilacion. Clase Compile");
+			throw e;
 		}
 	}
 	

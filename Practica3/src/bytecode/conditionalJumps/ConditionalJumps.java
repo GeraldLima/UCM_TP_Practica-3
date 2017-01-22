@@ -1,6 +1,7 @@
 package bytecode.conditionalJumps;
 
 import elements.CPU;
+import exceptions.StackException;
 import bytecode.oneParameterInstructions.ByteCodeOneParameter;
 
 public abstract class ConditionalJumps extends ByteCodeOneParameter{
@@ -14,26 +15,30 @@ public abstract class ConditionalJumps extends ByteCodeOneParameter{
 	}
 	
 	@Override
-	public boolean execute(CPU cpu) {
+	public void execute(CPU cpu) throws StackException{
 
-		if(cpu.getSizeStack() >= 2 && this.param < cpu.getSizeProgram()){
+		if(this.param <= cpu.getSizeProgram()){
 			
+			try{
+				
 			int n1 = cpu.pop(); //cima
 			int n2 = cpu.pop(); //subcima
 			
-			if(compare(n2, n1/*, cpu*/)){
+			if(compare(n2, n1))
 				
 				cpu.increaseProgramCounter();
-			}
-			else{
+			
+			else
 				cpu.setProgramCounter(this.param);
+			
 			}
+				catch(Exception e){
+					throw new StackException(System.getProperty("line.separator") + "EXCEPCION-bytecode " + toString() + " Tamaño de la pila insuficiente");
+				}
 			
 			
-			return true;
 		}
-		
-		return false;
+	
 	}
 	
 	/**

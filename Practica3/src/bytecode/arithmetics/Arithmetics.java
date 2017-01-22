@@ -1,25 +1,34 @@
 package bytecode.arithmetics;
 
 import elements.CPU;
+import exceptions.DivisionByZeroException;
+import exceptions.StackException;
 import bytecode.ByteCode;
 
 public abstract class Arithmetics implements ByteCode{
 
 	@Override
-	public boolean execute(CPU cpu) {
+	public void execute(CPU cpu) throws DivisionByZeroException,StackException {
 		
 		int elem1, elem2, resul;		
-		boolean ok = false;
 		
-		if(cpu.getSizeStack() >= 2){
+		try{
+			
 			elem1 = cpu.pop();
 			elem2 = cpu.pop();
 			resul = executeAux(elem1, elem2);
 			cpu.push(resul);
-			ok = true;			
+			cpu.increaseProgramCounter();
+		
 		}
 		
-		return ok;
+		catch(DivisionByZeroException e){
+			throw e;
+		}
+		
+		catch(Exception e){
+			throw new StackException(System.getProperty("line.separator") + "EXCEPCION-bytecode " + toString() + ": Tamaño de la pila insuficiente");
+		}
 	}
 
 	@Override
@@ -32,12 +41,8 @@ public abstract class Arithmetics implements ByteCode{
 		else return null;
 	}
 
-	//TODO ojo!!!
-	public String toString(){
-		return toString();
-	}
 	
-	abstract protected int executeAux(int valor1, int valor2);
+	abstract protected int executeAux(int valor1, int valor2) throws DivisionByZeroException, StackException;
 
 	abstract protected ByteCode parseAux(String s);
 		

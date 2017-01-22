@@ -4,6 +4,7 @@ import instruction.Instruction;
 import instruction.ParserInstruction;
 import comandos.ParsedProgram;
 import comandos.SourceProgram;
+import exceptions.ArrayException;
 import exceptions.LexicalAnalysisException;
 
 
@@ -44,26 +45,31 @@ public class LexicalParser {
 	 * @param pProgram, programa parseado
 	 * @param stopKey, centinela
 	 * @throws LexicalAnalysisException, excepcion
+	 * @throws ArrayException 
 	 */
-	public void lexicalParser(ParsedProgram pProgram, String stopKey) throws LexicalAnalysisException{
+	public void lexicalParser(ParsedProgram pProgram, String stopKey) throws LexicalAnalysisException, ArrayException{
 		boolean stop = false;
 		
 		while (programCounter < sProgram.getPosicion() && (!stop)){
 			String line = sProgram.devolverString(programCounter);
+			line = line.trim();
 			
 			if (line.equalsIgnoreCase(stopKey))
 				stop = true;
 			
 			else {
 				Instruction instruction = ParserInstruction.parse(line, this); //te convierte la linea en la instruccion correspondiente
-				if(instruction != null){
+				if(instruction != null)
 					pProgram.aniadirInstruccion(instruction);
-					increaseProgramCounter();
-				}
-				
+				else
+					throw new LexicalAnalysisException(" " + this.programCounter);
+									
 			}
 			
 		}
+		
+		if(stop == false)
+			throw new LexicalAnalysisException(" " + this.programCounter); 
 	}
 	
 	/**

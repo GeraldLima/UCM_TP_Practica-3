@@ -7,7 +7,6 @@ import elements.Compiler;
 import elements.LexicalParser;
 import exceptions.ArrayException;
 
-//TODO COMPLETADA
 public abstract class Condition {
 	
 	private Term term1;

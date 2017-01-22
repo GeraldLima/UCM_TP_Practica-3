@@ -2,13 +2,12 @@ package bytecode;
 
 import elements.CPU;
 
-//TODO CLASE QUE NO SE REFLEJA
 public class Halt implements ByteCode {
 
 	@Override
-	public boolean execute(CPU cpu) {
+	public void execute(CPU cpu) {
 	
-		return cpu.halt();
+		cpu.halt();
 	}
 
 	@Override

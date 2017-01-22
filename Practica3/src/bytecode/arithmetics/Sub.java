@@ -1,12 +1,13 @@
 package bytecode.arithmetics;
 
+import exceptions.StackException;
 import bytecode.ByteCode;
 
 public class Sub extends Arithmetics{
 
 
 	@Override
-	protected int executeAux(int valor1, int valor2) {
+	protected int executeAux(int valor1, int valor2)throws StackException {
 		
 		return valor2 - valor1;
 	}

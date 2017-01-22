@@ -26,7 +26,7 @@ public class While implements Instruction {
 	}
 
 	@Override
-	public Instruction lexParse(String[] words, LexicalParser lexParser) throws LexicalAnalysisException {
+	public Instruction lexParse(String[] words, LexicalParser lexParser) throws LexicalAnalysisException, ArrayException {
 
 		if(words.length != 4){
 			return null;

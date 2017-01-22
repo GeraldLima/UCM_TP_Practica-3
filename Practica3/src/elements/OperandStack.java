@@ -1,10 +1,13 @@
 package elements;
+
+import exceptions.StackException;
+
 /**
  * Clase que representa la pila
  */
 public class OperandStack {
 	
-	private static final int TAMPILA = 1;	
+	private static final int TAMPILA = 50;	
 	private int posPila;
 	private int[] stack;
 	
@@ -23,21 +26,18 @@ public class OperandStack {
 	 * @param elemento, elemento a meter en la pila
 	 * @return 
 	 */
-	public boolean push(int elemento){
+	public void push(int elemento) throws StackException{
 		
-		boolean ok = false;
 		
-		if(pilaLlena()){
+		/*if(pilaLlena()){
 			int[] stackAux = new int[posPila*2];
 			copiarPila(stackAux);
 
-		}
+		}*/
 		
 		stack[posPila] = elemento;
 		posPila = posPila + 1; 
-		ok = true;
 		
-		return ok;	
 	}
 	
 	
@@ -45,7 +45,7 @@ public class OperandStack {
 	 * Metodo que se encarga de meter un elemento en la pila
 	 * @return el elemento metido
 	 */
-	public int pop(){
+	public int pop()throws StackException{
 	
 		int elemento = stack[posPila - 1]; //getCima();
 		posPila = posPila - 1;
@@ -57,12 +57,12 @@ public class OperandStack {
 	 * Metodo que se encarga de copiar los elementos de la pila
 	 * @param pila, pila auxiliar
 	 */
-	private void copiarPila(int[] pila){
+	/*private void copiarPila(int[] pila){
 		for (int i = 0; i < posPila; i++) {
 			pila[i] = stack[i];
 		}
 		stack = pila;
-	}
+	}*/
 	
 	/**
 	 * Metodo que devuelve la cima de la pila

@@ -1,6 +1,7 @@
 package bytecode.oneParameterInstructions;
 
 import elements.CPU;
+import exceptions.StackException;
 import bytecode.ByteCode;
 
 public class Store extends ByteCodeOneParameter{
@@ -15,20 +16,20 @@ public class Store extends ByteCodeOneParameter{
 
 
 	@Override
-	public boolean execute(CPU cpu) {
-	
-		boolean ok = false;
+	public void execute(CPU cpu) throws StackException{
 		
-		if(!cpu.pilaVacia()){
-			
+			try{
+				
 			int valor = cpu.pop();
 			cpu.write(param, valor);
-			ok = true;
-		}
-		
-	return ok;
-		
-		
+			cpu.increaseProgramCounter();
+			
+			}
+			catch(Exception e){
+				
+				throw new StackException(System.getProperty("line.separator") + "EXCEPCION-bytecode " + toString() + " Tamaño de la pila insuficiente");
+			}
+			
 
 	}
 
@@ -36,8 +37,13 @@ public class Store extends ByteCodeOneParameter{
 	protected ByteCode parseAux(String string1, String string2) {
 		
 		if(string1.equalsIgnoreCase("STORE")){
+			try{
 			int param = Integer.parseInt(string2);
 			return new Store(param);
+			}
+			catch(NumberFormatException e){
+				System.out.println("EXCEPCION: Formato numerico incorrecto");
+			}
 		}
 		
 		return null;

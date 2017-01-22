@@ -24,8 +24,13 @@ public class IfNeq extends ConditionalJumps{
 	protected ByteCode parseAux(String string1, String string2) {
 		
 		if(string1.equalsIgnoreCase("IFNEQ")){
+			try{
 			int param = Integer.parseInt(string2);
 			return new IfNeq(param);
+			}
+			catch(NumberFormatException e){
+				System.out.println("EXCEPCION: Formato numerico incorrecto");
+			}
 		}
 		
 		return null;

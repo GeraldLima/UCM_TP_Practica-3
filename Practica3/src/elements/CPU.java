@@ -1,5 +1,7 @@
 package elements;
 
+import exceptions.ExecutionErrorException;
+import exceptions.StackException;
 import bytecode.ByteCode;
 import bytecode.ByteCodeProgram;
 
@@ -28,37 +30,34 @@ public class CPU {
 	/**
 	 * Metodo que se encarga de procesar todas instrucciones que tiene el programa
 	 * @return true si todo ha ido correctamente
+	 * @throws  
 	 */
-	public boolean run(){
-		
-		boolean ok = true;
+	public void run() throws ExecutionErrorException{
 		
 		this.programCounter = 0;
 		
-		while (this.programCounter < bcProgram.getPosicion() && (ok) && (!terminado)) {
+		while (this.programCounter < bcProgram.getPosicion()  && (!terminado)) {
 			
-			int contAux = this.programCounter;
-			ByteCode bc = bcProgram.getByteCode(this.programCounter);
-			
-			if (!bc.execute(this)){// salir del bucle
-				ok = false;
+			try{
+				
+				ByteCode bc = bcProgram.getByteCode(this.programCounter);
+				bc.execute(this);
 			}
 			
-			if(contAux == this.programCounter){
-				this.increaseProgramCounter();
+			catch(ExecutionErrorException e){
+				throw new ExecutionErrorException(this.programCounter + e.toString());
 			}
-			
 		}
-		return ok;
+		
 	}
 	
-	public boolean push(int elem){
+	public void push(int elem) throws StackException{
 	
-		return this.stack.push(elem);
+		this.stack.push(elem);
 	}
 	
 	
-	public int pop() { 
+	public int pop() throws StackException{ 
 		return this.stack.pop(); 
 	}
 	
@@ -67,13 +66,11 @@ public class CPU {
 		return this.terminado = true;
 	}
 	
-	public boolean out() {
-		
-		boolean ok = true;
+	public void out() throws StackException{
 			
-		System.out.println(System.getProperty("line.separator") + "La cima de la pila es: " + stack.getCima());
+		int valor = stack.pop();
+		System.out.println(System.getProperty("line.separator") + "Consola: " + valor);
 				
-		return ok;
 	}
 	
 	

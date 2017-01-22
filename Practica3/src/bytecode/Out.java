@@ -1,18 +1,26 @@
 package bytecode;
 
 import elements.CPU;
+import exceptions.StackException;
 
-//TODO CLASE QUE NO SE REFLEJA
+
 public class Out implements ByteCode {
 
 	@Override
-	public boolean execute(CPU cpu) {
+	public void execute(CPU cpu) throws StackException{
 		
-		return cpu.out();
+		try{
+		 cpu.out();
+		 cpu.increaseProgramCounter();
+		}
+		catch(Exception e){
+			throw new StackException(System.getProperty("line.separator") + "EXCEPCION-bytecode " + toString() + " :Tamaño de la pila insuficiente");
+		}
 	}
 
 	@Override
-	public ByteCode parse(String[] s) {
+	public ByteCode parse(String[] s){
+		
 		if(s.length != 1 || !s[0].equalsIgnoreCase("OUT")) 
 			return null;
 		else 

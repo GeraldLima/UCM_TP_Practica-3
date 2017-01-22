@@ -12,6 +12,7 @@ public class Quit implements Command{
 
 	@Override
 	public Command parse(String[] s) {
+		
 		if(s.length != 1 || !s[0].equalsIgnoreCase("QUIT")) 
 			return null;
 		else 

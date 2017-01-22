@@ -1,24 +1,19 @@
 package exceptions;
 
-public class StackException extends StackOverflowError {
+public class StackException extends ExecutionErrorException {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	/**
-	 * 
-	 */
-
-	private String infoError = "Violacion de pila";
 	
 	public StackException (String s){
 		
-		 this.infoError = s;
+		 super(s);
 	}
 	
 	public String toString(){
 	
-		return this.infoError;	
+		return super.toString();
 	}
 }

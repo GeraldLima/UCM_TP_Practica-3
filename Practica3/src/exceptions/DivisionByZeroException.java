@@ -1,7 +1,5 @@
 package exceptions;
 
-
-//TODO arreglada
 public class DivisionByZeroException extends ExecutionErrorException {
 		
 	/**
